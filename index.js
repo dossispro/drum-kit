@@ -1,18 +1,18 @@
 var n = 7 
 
-// checks which button was pressed
+// checks which button was pressed and pass the button's character
 for (var i = 0; i < n; i++) {
     document.querySelectorAll(".drum")[i].addEventListener("click", function (event) {
-        console.log(event.target.innerHTML)
         var buttonInnerHtml = this.innerHTML;
         playsound(buttonInnerHtml);
-
+        pressedKey(buttonInnerHtml);
 });
 
 }
 
 document.addEventListener("keydown", function (event) {
     playsound(event.key);
+    pressedKey(event.key);
 });
 
 
@@ -59,6 +59,9 @@ function playsound(key) {
     }
 }
 
-// challenge:
-// - create function that takes a character and checks it against the switch statement
-// - then call the event listener for the key press, and the drum buttons
+
+function pressedKey(currentKey) {
+    var currentlyPressed = document.querySelector("." + currentKey);
+    currentlyPressed.classList.add("pressed");
+    setTimeout(function() {currentlyPressed.classList.remove("pressed");}, 100)
+}
